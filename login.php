@@ -22,15 +22,17 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         if (!$usuariodb) {
             $mensaje = ["tipo" => 'bg-danger', "mensaje" => "Usuario no registrado"];
-        }
-        if(!password_verify($password,$usuariodb['password'])){
+        } else{
+            if(!password_verify($password,$usuariodb['password'])){
             $mensaje = ["tipo" => 'bg-danger', "mensaje" => "Contraseña incorrecta"];
         }else{
             session_start();
             $_SESSION['id'] = $usuariodb['id'];
             $_SESSION['username'] = $usuariodb['username'];
             header('Location:/');
+            }
         }
+        
     }
 
     if (empty($mensaje)) {
